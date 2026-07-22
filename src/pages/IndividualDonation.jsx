@@ -21,6 +21,7 @@ export default function IndividualDonation() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [showEmptyMsg, setShowEmptyMsg] = useState(false);
+  const [phoneErr, setPhoneErr] = useState('');
 
   const handlePreset = (val) => {
     setQuickAmt(val);
@@ -56,6 +57,27 @@ export default function IndividualDonation() {
     if (!phone) { alert('Please enter your phone number.'); return; }
     const items = Object.entries(cartQty).filter(([, q]) => q > 0).map(([k, q]) => k + 'x' + q).join(', ');
     alert(`Donation: \u20B9${total.toLocaleString('en-IN')} INR\nItems: ${items}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
+  };
+
+  const handlePhoneChange = (e) => {
+    const val = e.target.value;
+    if (!/^[0-9]*$/.test(val)) {
+      setPhoneErr('Only numeric characters accept');
+      setTimeout(() => setPhoneErr(''), 2000);
+      return;
+    }
+    if (val.length > 10) {
+      setPhoneErr('Only 10 digits allowed');
+      setTimeout(() => setPhoneErr(''), 2000);
+      return;
+    }
+    setPhone(val);
+    if (val.length === 10 && !/^[6-9]/.test(val)) {
+      setPhoneErr('Mobile number must start with 6, 7, 8 or 9');
+      setTimeout(() => setPhoneErr(''), 2000);
+    } else {
+      setPhoneErr('');
+    }
   };
 
   return (
@@ -438,6 +460,7 @@ export default function IndividualDonation() {
           font-family: 'Montserrat', sans-serif;
         }
         .basket-empty-msg.show { display: block; }
+        .basket-field-err{display:block;color:#e53935;font-size:11px;margin-top:4px;font-family:'Open Sans',sans-serif;padding-left:80px}
         @media (max-width: 500px) {
           .basket-panel { width: 100vw; }
         }
@@ -551,8 +574,9 @@ export default function IndividualDonation() {
             <input type="text" className="basket-input" placeholder="Enter your name" value={name} onChange={e => setName(e.target.value)} />
             <div className="basket-phone-row">
               <span className="phone-flag">&#127470;&#127475; +91</span>
-              <input type="tel" className="basket-input phone-inp" placeholder="Phone number" value={phone} onChange={e => setPhone(e.target.value)} />
+              <input type="tel" className="basket-input phone-inp" placeholder="Phone number" value={phone} onChange={handlePhoneChange} />
             </div>
+            {phoneErr && <span className="basket-field-err">{phoneErr}</span>}
             <input type="email" className="basket-input" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} />
           </div>
 

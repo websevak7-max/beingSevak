@@ -735,10 +735,28 @@
       const err = document.getElementById(errorId);
       if (/[^0-9]/.test(el.value)) {
         el.value = el.value.replace(/[^0-9]/g, '');
+        err.textContent = 'Only numeric characters accept';
         err.classList.add('show');
         clearTimeout(nameTimers[errorId]);
         nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+        return;
       }
+      if (el.value.length > 10) {
+        el.value = el.value.slice(0, 10);
+        err.textContent = 'Only 10 digits allowed';
+        err.classList.add('show');
+        clearTimeout(nameTimers[errorId]);
+        nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+        return;
+      }
+      if (el.value.length === 10 && !/^[6-9]/.test(el.value)) {
+        err.textContent = 'Mobile number must start with 6, 7, 8 or 9';
+        err.classList.add('show');
+        clearTimeout(nameTimers[errorId]);
+        nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+        return;
+      }
+      err.classList.remove('show');
     }
     function validateMsg(el) {
       const err = document.getElementById('msg-error');

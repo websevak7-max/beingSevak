@@ -67,12 +67,22 @@ const ContactUs = () => {
 
   const handlePhoneChange = (e) => {
     const val = e.target.value;
-    if (/^[0-9]*$/.test(val)) {
-      setFormData({ ...formData, phone: val });
-      setPhoneErr('');
-    } else {
+    if (!/^[0-9]*$/.test(val)) {
       setPhoneErr('Only numeric characters accept');
       showError(setPhoneErr);
+      return;
+    }
+    if (val.length > 10) {
+      setPhoneErr('Only 10 digits allowed');
+      showError(setPhoneErr);
+      return;
+    }
+    setFormData({ ...formData, phone: val });
+    if (val.length === 10 && !/^[6-9]/.test(val)) {
+      setPhoneErr('Mobile number must start with 6, 7, 8 or 9');
+      showError(setPhoneErr);
+    } else {
+      setPhoneErr('');
     }
   };
 
