@@ -43,6 +43,50 @@ const ContactUs = () => {
     setFormData({ ...formData, [e.target.name || e.target.id]: e.target.value });
   };
 
+  const handleFirstNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setFormData({ ...formData, firstName: val });
+      setFirstNameErr('');
+    } else {
+      setFirstNameErr('Only alphabetical letters accept');
+      showError(setFirstNameErr);
+    }
+  };
+
+  const handleLastNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setFormData({ ...formData, lastName: val });
+      setLastNameErr('');
+    } else {
+      setLastNameErr('Only alphabetical letters accept');
+      showError(setLastNameErr);
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const val = e.target.value;
+    if (/^[0-9]*$/.test(val)) {
+      setFormData({ ...formData, phone: val });
+      setPhoneErr('');
+    } else {
+      setPhoneErr('Only numeric characters accept');
+      showError(setPhoneErr);
+    }
+  };
+
+  const handleMessageChange = (e) => {
+    const val = e.target.value;
+    if (val.length <= 100) {
+      setFormData({ ...formData, message: val });
+      setMessageErr('');
+    } else {
+      setMessageErr('Only 100 characters accept');
+      showError(setMessageErr);
+    }
+  };
+
   return (
     <>
       <style>{`
@@ -117,6 +161,7 @@ const ContactUs = () => {
         .submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);transition:0.5s;}
         .submit-btn:hover::before{left:100%;}
         .submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,162,217,0.35);}
+        .field-err{display:block;color:#e53935;font-size:0.75rem;margin-top:4px;font-family:'Open Sans',sans-serif;}
         .submit-btn:active{transform:translateY(-1px);}
         .map-section{background:var(--light-bg);padding:60px 24px;}
         .map-section .section-label{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;color:var(--navy);margin-bottom:24px;text-align:center;}
@@ -257,11 +302,13 @@ const ContactUs = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label>First Name <span className="req">*</span></label>
-                    <input type="text" id="cf_name" name="firstName" placeholder="Your first name" value={formData.firstName} onChange={handleChange} required />
+                    <input type="text" id="cf_name" name="firstName" placeholder="Your first name" value={formData.firstName} onChange={handleFirstNameChange} required />
+                    {firstNameErr && <span className="field-err">{firstNameErr}</span>}
                   </div>
                   <div className="form-group">
                     <label>Last Name</label>
-                    <input type="text" id="cf_lname" name="lastName" placeholder="Your last name" value={formData.lastName} onChange={handleChange} />
+                    <input type="text" id="cf_lname" name="lastName" placeholder="Your last name" value={formData.lastName} onChange={handleLastNameChange} />
+                    {lastNameErr && <span className="field-err">{lastNameErr}</span>}
                   </div>
                 </div>
                 <div className="form-row">
@@ -271,7 +318,8 @@ const ContactUs = () => {
                   </div>
                   <div className="form-group">
                     <label>Phone <span className="req">*</span></label>
-                    <input type="tel" id="cf_phone" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleChange} required />
+                    <input type="tel" id="cf_phone" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handlePhoneChange} required />
+                    {phoneErr && <span className="field-err">{phoneErr}</span>}
                   </div>
                 </div>
                 <div className="form-group">
@@ -287,7 +335,8 @@ const ContactUs = () => {
                 </div>
                 <div className="form-group">
                   <label>Message <span className="req">*</span></label>
-                  <textarea id="cf_message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleChange} required></textarea>
+                  <textarea id="cf_message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleMessageChange} required></textarea>
+                    {messageErr && <span className="field-err">{messageErr}</span>}
                 </div>
                 <button type="submit" className="submit-btn">
                   <i className="fas fa-paper-plane"></i> Send Message
