@@ -36,7 +36,7 @@ const MissionAtmanirbhar = () => {
           background: transparent; color: #00a3da; padding: 0; border-radius: 0;
           display: inline-block; margin-bottom: 25px; font-weight: 800; font-size: 30px; letter-spacing: 1px;
         }
-        .mission-atmanirbhar .hero-left h1 { font-size: 62px; line-height: 1.1; margin-bottom: 25px; }
+        .mission-atmanirbhar .hero-left h1 { font-size: 62px; line-height: 1.1; font-weight: 800; margin-bottom: 25px; }
         .mission-atmanirbhar .hero-left p { font-size: 18px; color: #6b7280; line-height: 1.9; margin-bottom: 35px; }
         .mission-atmanirbhar .hero-buttons { display: flex; gap: 15px; }
         .mission-atmanirbhar .primary-btn {

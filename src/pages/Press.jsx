@@ -46,7 +46,7 @@ const Press = () => {
         .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0px;position:relative;overflow:hidden;padding:10px 8%;}
         .hero-content{position:relative;z-index:2;}
         .hero-content .tag{background:transparent;color:#00a3da;padding:0;border-radius:0;display:inline-block;margin-bottom:25px;font-weight:800;font-size:30px;letter-spacing:1px;}
-        .hero h1{font-size:62px;line-height:1.1;margin-bottom:25px;color:var(--navy);}
+        .hero h1{font-size:62px;line-height:1.1;font-weight:800;margin-bottom:25px;color:var(--navy);}
         .hero h1 span{color:#00a3da;}
         .hero p{font-size:18px;line-height:1.9;color:#66788a;margin-bottom:35px;}
         .hero-buttons{display:flex;gap:18px;flex-wrap:wrap;}

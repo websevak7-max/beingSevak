@@ -35,7 +35,7 @@ export default function MissionWellness() {
           background: transparent; color: #00a3da; padding: 0; border-radius: 0;
           display: inline-block; margin-bottom: 25px; font-weight: 800; font-size: 30px; letter-spacing: 1px;
         }
-        .mission-wellness .hero-left h1 { font-size: 62px; line-height: 1.1; color: #1c2b36; margin-bottom: 25px; }
+        .mission-wellness .hero-left h1 { font-size: 62px; line-height: 1.1; font-weight: 800; color: #1c2b36; margin-bottom: 25px; }
         .mission-wellness .hero-left h1 span { color: #00a3da; }
         .mission-wellness .hero-left p { font-size: 18px; line-height: 1.9; color: #66788a; margin-bottom: 35px; }
         .mission-wellness .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; }

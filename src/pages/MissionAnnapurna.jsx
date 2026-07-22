@@ -29,7 +29,7 @@ const MissionAnnapurna = () => {
         }
         .mission-annapurna .hero-content { position: relative; z-index: 2; }
         .mission-annapurna .tag { background: transparent; color: #00a3da; padding: 0; border-radius: 0; display: inline-block; margin-bottom: 25px; font-weight: 800; font-size: 30px; letter-spacing: 1px; }
-        .mission-annapurna .hero h1 { font-size: 62px; line-height: 1.1; margin-bottom: 25px; }
+        .mission-annapurna .hero h1 { font-size: 62px; line-height: 1.1; font-weight: 800; margin-bottom: 25px; }
         .mission-annapurna .hero h1 span { color: #00a3da; }
         .mission-annapurna .hero p { font-size: 18px; line-height: 1.9; color: #66788a; margin-bottom: 35px; }
         .mission-annapurna .hero-buttons { display: flex; gap: 20px; }
