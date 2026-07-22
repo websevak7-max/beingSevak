@@ -41,6 +41,60 @@ const ContactUs = () => {
     setFormData({ ...formData, [e.target.name || e.target.id]: e.target.value });
   };
 
+  const handleFirstNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setFormData({ ...formData, firstName: val });
+      setFirstNameErr('');
+    } else {
+      setFirstNameErr('Only alphabetical letters accept');
+      showError(setFirstNameErr);
+    }
+  };
+
+  const handleLastNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setFormData({ ...formData, lastName: val });
+      setLastNameErr('');
+    } else {
+      setLastNameErr('Only alphabetical letters accept');
+      showError(setLastNameErr);
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const val = e.target.value;
+    if (!/^[0-9]*$/.test(val)) {
+      setPhoneErr('Only numeric characters accept');
+      showError(setPhoneErr);
+      return;
+    }
+    if (val.length > 10) {
+      setPhoneErr('Only 10 digits allowed');
+      showError(setPhoneErr);
+      return;
+    }
+    setFormData({ ...formData, phone: val });
+    if (val.length === 10 && !/^[6-9]/.test(val)) {
+      setPhoneErr('Mobile number must start with 6, 7, 8 or 9');
+      showError(setPhoneErr);
+    } else {
+      setPhoneErr('');
+    }
+  };
+
+  const handleMessageChange = (e) => {
+    const val = e.target.value;
+    if (val.length <= 100) {
+      setFormData({ ...formData, message: val });
+      setMessageErr('');
+    } else {
+      setMessageErr('Only 100 characters accept');
+      showError(setMessageErr);
+    }
+  };
+
   return (
     <>
       <style>{`

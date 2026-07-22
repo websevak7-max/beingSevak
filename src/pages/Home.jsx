@@ -17,6 +17,7 @@ export default function Home() {
   const [basketPhone, setBasketPhone] = useState('');
   const [basketEmail, setBasketEmail] = useState('');
   const [showEmptyMsg, setShowEmptyMsg] = useState(false);
+  const [basketPhoneErr, setBasketPhoneErr] = useState('');
 
   // Hero Slider
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -96,6 +97,27 @@ export default function Home() {
   const proceedDonate = () => {
     if (basketTotal === 0) { setShowEmptyMsg(true); setTimeout(() => setShowEmptyMsg(false), 3000); return; }
     alert(`Donation: \u20B9${basketTotal.toLocaleString('en-IN')} INR\nName: ${basketName}\nEmail: ${basketEmail}\nPhone: ${basketPhone}`);
+  };
+
+  const handleBasketPhoneChange = (e) => {
+    const val = e.target.value;
+    if (!/^[0-9]*$/.test(val)) {
+      setBasketPhoneErr('Only numeric characters accept');
+      setTimeout(() => setBasketPhoneErr(''), 2000);
+      return;
+    }
+    if (val.length > 10) {
+      setBasketPhoneErr('Only 10 digits allowed');
+      setTimeout(() => setBasketPhoneErr(''), 2000);
+      return;
+    }
+    setBasketPhone(val);
+    if (val.length === 10 && !/^[6-9]/.test(val)) {
+      setBasketPhoneErr('Mobile number must start with 6, 7, 8 or 9');
+      setTimeout(() => setBasketPhoneErr(''), 2000);
+    } else {
+      setBasketPhoneErr('');
+    }
   };
 
   const openModal = (idx) => {
@@ -210,6 +232,7 @@ export default function Home() {
         .basket-donate-btn:hover{background:#00A3DA}
         .basket-empty-msg{display:none;text-align:center;color:#e53935;font-size:12px;margin-top:8px;font-family:'Montserrat',sans-serif}
         .basket-empty-msg.show{display:block}
+        .basket-field-err{display:block;color:#e53935;font-size:11px;margin-top:4px;font-family:'Open Sans',sans-serif;padding-left:80px}
         @media(max-width:500px){.basket-panel{width:100vw}}
       `}</style>
 
@@ -1493,8 +1516,9 @@ export default function Home() {
             <input type="text" className="basket-input" placeholder="Enter your name" value={basketName} onChange={e => setBasketName(e.target.value)} />
             <div className="basket-phone-row">
               <span className="phone-flag">&#127470;&#127475; +91</span>
-              <input type="tel" className="basket-input phone-inp" placeholder="Phone number" value={basketPhone} onChange={e => setBasketPhone(e.target.value)} />
+              <input type="tel" className="basket-input phone-inp" placeholder="Phone number" value={basketPhone} onChange={handleBasketPhoneChange} />
             </div>
+            {basketPhoneErr && <span className="basket-field-err">{basketPhoneErr}</span>}
             <input type="email" className="basket-input" placeholder="Enter your email" value={basketEmail} onChange={e => setBasketEmail(e.target.value)} />
           </div>
           <div className="basket-checkboxes">
