@@ -43,50 +43,6 @@ const ContactUs = () => {
     setFormData({ ...formData, [e.target.name || e.target.id]: e.target.value });
   };
 
-  const handleFirstNameChange = (e) => {
-    const val = e.target.value;
-    if (/^[A-Za-z\s]*$/.test(val)) {
-      setFormData({ ...formData, firstName: val });
-      setFirstNameErr('');
-    } else {
-      setFirstNameErr('Only alphabetical letters accept');
-      showError(setFirstNameErr);
-    }
-  };
-
-  const handleLastNameChange = (e) => {
-    const val = e.target.value;
-    if (/^[A-Za-z\s]*$/.test(val)) {
-      setFormData({ ...formData, lastName: val });
-      setLastNameErr('');
-    } else {
-      setLastNameErr('Only alphabetical letters accept');
-      showError(setLastNameErr);
-    }
-  };
-
-  const handlePhoneChange = (e) => {
-    const val = e.target.value;
-    if (/^[0-9]*$/.test(val)) {
-      setFormData({ ...formData, phone: val });
-      setPhoneErr('');
-    } else {
-      setPhoneErr('Only numeric characters accept');
-      showError(setPhoneErr);
-    }
-  };
-
-  const handleMessageChange = (e) => {
-    const val = e.target.value;
-    if (val.length <= 100) {
-      setFormData({ ...formData, message: val });
-      setMessageErr('');
-    } else {
-      setMessageErr('Only 100 characters accept');
-      showError(setMessageErr);
-    }
-  };
-
   return (
     <>
       <style>{`
@@ -302,13 +258,11 @@ const ContactUs = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label>First Name <span className="req">*</span></label>
-                    <input type="text" id="cf_name" name="firstName" placeholder="Your first name" value={formData.firstName} onChange={handleFirstNameChange} required />
-                    {firstNameErr && <span className="field-err">{firstNameErr}</span>}
+                    <input type="text" id="cf_name" name="firstName" placeholder="Your first name" value={formData.firstName} onChange={handleChange} required />
                   </div>
                   <div className="form-group">
                     <label>Last Name</label>
-                    <input type="text" id="cf_lname" name="lastName" placeholder="Your last name" value={formData.lastName} onChange={handleLastNameChange} />
-                    {lastNameErr && <span className="field-err">{lastNameErr}</span>}
+                    <input type="text" id="cf_lname" name="lastName" placeholder="Your last name" value={formData.lastName} onChange={handleChange} />
                   </div>
                 </div>
                 <div className="form-row">
@@ -318,8 +272,7 @@ const ContactUs = () => {
                   </div>
                   <div className="form-group">
                     <label>Phone <span className="req">*</span></label>
-                    <input type="tel" id="cf_phone" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handlePhoneChange} required />
-                    {phoneErr && <span className="field-err">{phoneErr}</span>}
+                    <input type="tel" id="cf_phone" name="phone" placeholder="Your phone number" value={formData.phone} onChange={handleChange} required />
                   </div>
                 </div>
                 <div className="form-group">
@@ -335,8 +288,7 @@ const ContactUs = () => {
                 </div>
                 <div className="form-group">
                   <label>Message <span className="req">*</span></label>
-                  <textarea id="cf_message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleMessageChange} required></textarea>
-                    {messageErr && <span className="field-err">{messageErr}</span>}
+                    <textarea id="cf_message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleChange} required></textarea>
                 </div>
                 <button type="submit" className="submit-btn">
                   <i className="fas fa-paper-plane"></i> Send Message
