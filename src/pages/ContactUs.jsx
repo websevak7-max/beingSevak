@@ -11,8 +11,6 @@ const ContactUs = () => {
     message: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [dialOpen, setDialOpen] = useState(false);
-  const [dialedNumber, setDialedNumber] = useState('+91 8879035035');
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -82,25 +80,6 @@ const ContactUs = () => {
         .social-links a:hover{background:var(--cyan);color:var(--white);border-color:var(--cyan);transform:translateY(-4px) scale(1.05);box-shadow:0 8px 20px rgba(0,162,217,0.25);}
         .contact-form-wrap{background:var(--white);border:1px solid #e2ecf5;border-radius:20px;padding:36px 32px;box-shadow:0 8px 30px rgba(0,0,0,0.05);transition:box-shadow 0.4s ease;}
         .contact-form-wrap:hover{box-shadow:0 16px 50px rgba(0,0,0,0.08);}
-        .phone-card-wrap{position:relative;}
-        .phone-card-wrap.open .info-card{border-color:var(--cyan);box-shadow:0 12px 32px rgba(0,0,0,0.08);}
-        .dial-popup{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:10;background:var(--white);border:1px solid #e2ecf5;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.12);padding:0;overflow:hidden;}
-        .phone-card-wrap.open .dial-popup{display:block;}
-        .dial-inner{background:linear-gradient(145deg,#1a1a2e,#0f0f23);border-radius:16px;padding:14px 14px 12px;}
-        .dial-display{text-align:center;margin-bottom:10px;}
-        .dial-display-text{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#00A2D9;letter-spacing:2px;min-height:24px;word-break:break-all;}
-        .dial-display-label{font-size:9px;color:#555;margin-top:3px;letter-spacing:1px;}
-        .dial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
-        .dial-key{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;position:relative;}
-        .dial-key:hover{background:rgba(0,162,217,0.15);border-color:rgba(0,162,217,0.3);transform:scale(1.05);}
-        .dial-key:active{transform:scale(0.95);background:rgba(0,162,217,0.25);}
-        .dial-key-sub{font-size:6px;color:#555;letter-spacing:2px;position:absolute;bottom:22%;font-weight:400;}
-        .dial-actions{display:flex;gap:8px;}
-        .dial-btn{flex:1;padding:10px;border-radius:10px;border:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
-        .dial-btn-call{background:linear-gradient(135deg,#2eb85c,#249a4a);color:#fff;box-shadow:0 8px 25px rgba(46,184,92,0.35);}
-        .dial-btn-call:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,184,92,0.45);}
-        .dial-btn-backspace{background:rgba(255,255,255,0.06);color:#aaa;width:44px;flex:0 0 44px;}
-        .dial-btn-backspace:hover{background:rgba(229,57,53,0.15);color:#e53935;}
         .contact-form-wrap h3{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;color:var(--navy);margin-bottom:6px;}
         .contact-form-wrap > p{font-size:0.88rem;color:var(--text-mid);margin-bottom:24px;}
         .form-group{margin-bottom:18px;}
@@ -136,38 +115,11 @@ const ContactUs = () => {
             <p>Whether you want to volunteer, collaborate, or learn more about our work, we're just a message away. Visit
               any of our offices across India.</p>
 
-            <div className={`phone-card-wrap${dialOpen ? ' open' : ''}`}>
-              <div className="info-card" style={{cursor:'pointer'}} onClick={() => setDialOpen(!dialOpen)}>
-                <div className="icon-box"><i className="fas fa-phone"></i></div>
-                <div>
-                  <h4>Phone</h4>
-                  <p>+91 8879035035</p>
-                </div>
-              </div>
-              <div className="dial-popup">
-                <div className="dial-inner">
-                  <div className="dial-display">
-                    <div className="dial-display-text">{dialedNumber}</div>
-                    <div className="dial-display-label">DIALING NUMBER</div>
-                  </div>
-                  <div className="dial-grid">
-                    {[{n:'1',s:''},{n:'2',s:'ABC'},{n:'3',s:'DEF'},{n:'4',s:'GHI'},{n:'5',s:'JKL'},{n:'6',s:'MNO'},{n:'7',s:'PQRS'},{n:'8',s:'TUV'},{n:'9',s:'WXYZ'},{n:'*',s:''},{n:'0',s:'+'},{n:'#',s:''}].map(({n,s}) => (
-                      <button key={n} className="dial-key" onClick={(e) => {e.stopPropagation();setDialedNumber(prev => prev + n);}}>
-                        {n}{s && <span className="dial-key-sub">{s}</span>}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="dial-actions">
-                    <button className="dial-btn dial-btn-backspace" onClick={(e) => {e.stopPropagation();setDialedNumber(prev => prev.slice(0,-1));}}>
-                      <i className="fas fa-backspace"></i>
-                    </button>
-                    <a href={`tel:${dialedNumber.replace(/\s/g,'')}`} style={{flex:1,textDecoration:'none'}} onClick={e => e.stopPropagation()}>
-                      <button className="dial-btn dial-btn-call" style={{width:'100%'}}>
-                        <i className="fas fa-phone"></i> Call Now
-                      </button>
-                    </a>
-                  </div>
-                </div>
+            <div className="info-card">
+              <div className="icon-box"><i className="fas fa-phone"></i></div>
+              <div>
+                <h4>Phone</h4>
+                <p><a href="tel:+918879035035">+91 8879035035</a></p>
               </div>
             </div>
 
