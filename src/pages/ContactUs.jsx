@@ -87,8 +87,8 @@ const ContactUs = () => {
         .phone-card-top .icon-box{width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg, var(--cyan), var(--mid));display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--white);flex-shrink:0;}
         .phone-card-top h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:4px;}
         .phone-card-top p{font-size:0.88rem;color:var(--text-mid);line-height:1.6;}
-        .dial-wrap{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .3s ease,margin .3s ease;margin-top:0;}
-        .dial-wrap.open{max-height:330px;opacity:1;margin-top:12px;}
+        .dial-wrap{display:none;margin-top:0;}
+        .dial-wrap.open{display:block;margin-top:12px;}
         .dial-inner{background:linear-gradient(145deg,#1a1a2e,#0f0f23);border-radius:16px;padding:14px 14px 12px;}
         .dial-display{text-align:center;margin-bottom:10px;}
         .dial-display-text{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#00A2D9;letter-spacing:2px;min-height:24px;word-break:break-all;}
