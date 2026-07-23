@@ -37,6 +37,7 @@ const Careers = () => {
         .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
         .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00A2D9,#0072a0);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;border:none;border-radius:12px;cursor:pointer;transition:0.4s;letter-spacing:0.5px}
         .submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,163,218,0.3)}
+        .field-error{color:#e74c3c;font-size:12px;margin-top:4px;display:block}
         .volunteer-benefits{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
         .benefit-item{background:#f4f7fb;border-radius:12px;padding:16px;text-align:center;transition:0.3s}
         .benefit-item i{font-size:24px;color:#00A2D9;margin-bottom:8px;display:block}
@@ -111,17 +112,17 @@ const Careers = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label>Full Name <span>*</span></label>
-                    <input type="text" required placeholder="Your full name" />
+                    <input type="text" required placeholder="Your full name" onInput={(e) => { const err = e.target.parentElement.querySelector('.field-error'); if (e.target.value && !/^[A-Za-z\s]+$/.test(e.target.value)) { e.target.value = e.target.value.replace(/[^A-Za-z\s]/g, ''); if (!err) { e.target.insertAdjacentHTML('afterend', '<span class="field-error">Invalid name</span>'); setTimeout(() => e.target.parentElement.querySelector('.field-error')?.remove(), 2000); } } else if (err) { err.remove(); } }} />
                   </div>
                   <div className="form-group">
                     <label>Email <span>*</span></label>
-                    <input type="email" required placeholder="Your email address" />
+                    <input type="text" required placeholder="Your email address" onInput={(e) => { const err = e.target.parentElement.querySelector('.field-error'); if (e.target.value && !/^[A-Za-z0-9@.]+$/.test(e.target.value)) { e.target.value = e.target.value.replace(/[^A-Za-z0-9@.]/g, ''); if (!err) { e.target.insertAdjacentHTML('afterend', '<span class="field-error">Invalid email</span>'); setTimeout(() => e.target.parentElement.querySelector('.field-error')?.remove(), 2000); } } else if (err) { err.remove(); } }} />
                   </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group">
                     <label>Phone <span>*</span></label>
-                    <input type="tel" required placeholder="Your phone number" />
+                    <input type="tel" required placeholder="Your phone number" maxLength={10} onInput={(e) => { const err = e.target.parentElement.querySelector('.field-error'); e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10); if (e.target.value && e.target.value.length === 10) { if (!err) { e.target.insertAdjacentHTML('afterend', '<span class="field-error">10 digit number accept only</span>'); setTimeout(() => e.target.parentElement.querySelector('.field-error')?.remove(), 2000); } } else if (err) { err.remove(); } }} />
                   </div>
                   <div className="form-group">
                     <label>City</label>

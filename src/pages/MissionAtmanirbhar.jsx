@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 const MissionAtmanirbhar = () => {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    function handleMessage(e) {
+      if (iframeRef.current && typeof e.data === 'number') {
+        iframeRef.current.style.height = e.data + 'px';
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -58,8 +71,8 @@ const MissionAtmanirbhar = () => {
           100% { transform: perspective(1000px) rotateY(-10deg) translateY(0); }
         }
 
-        .mission-atmanirbhar .about-section { width: 100%; padding: 90px 7%; display: flex; align-items: center; gap: 60px; }
-        .mission-atmanirbhar .about-image { flex: 1; }
+        .mission-atmanirbhar .about-section { width: 100%; padding: 90px 7%; display: flex; align-items: center; gap: 60px; position: relative; z-index: 1; overflow: hidden; isolation: isolate; }
+        .mission-atmanirbhar .about-image { flex: 1; overflow: hidden; isolation: isolate; }
         .mission-atmanirbhar .about-image img { height: 520px; border-radius: 30px; object-fit: cover; }
         .mission-atmanirbhar .about-content { flex: 1; }
         .mission-atmanirbhar .about-content span { color: #00a3da; font-weight: 700; }
@@ -148,6 +161,8 @@ const MissionAtmanirbhar = () => {
 
         @media (max-width: 991px) {
           .mission-atmanirbhar .hero-content, .mission-atmanirbhar .about-section { flex-direction: column; text-align: center; }
+          .mission-atmanirbhar .about-section { margin-top: 50px; clip-path: inset(0); }
+          .mission-atmanirbhar #donate { margin-bottom: 30px; }
           .mission-atmanirbhar .hero-left { max-width: 100%; }
           .mission-atmanirbhar .hero-right img { max-width: 400px; height: 400px; }
           .mission-atmanirbhar .tag { font-size: 24px; }
@@ -185,6 +200,12 @@ const MissionAtmanirbhar = () => {
           .mission-atmanirbhar .sevak-title { font-size: 28px; }
           .mission-atmanirbhar .sevak-desc { font-size: 14px; }
           .mission-atmanirbhar .sevak-btn { padding: 12px 28px; font-size: 14px; white-space: normal; }
+          .mission-atmanirbhar .about-section { margin-top: 50px; }
+          .mission-atmanirbhar #donate { margin-bottom: 30px; }
+        }
+        @media (max-width: 360px) {
+          .mission-atmanirbhar .about-section { margin-top: 60px; }
+          .mission-atmanirbhar #donate { margin-bottom: 40px; }
         }
       `}</style>
 
@@ -209,11 +230,11 @@ const MissionAtmanirbhar = () => {
           </div>
         </section>
 
-        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 1 }}>
+        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 10, isolation: 'isolate' }}>
           <iframe
+            ref={iframeRef}
             src="/donations/donation-inline-atmanirbhar.html"
-            style={{ width: '100%', height: '650px', border: 'none', display: 'block', overflow: 'hidden' }}
-            scrolling="no"
+            style={{ width: '100%', height: '650px', border: 'none', display: 'block' }}
             title="Donate to Mission Atmanirbhar"
           />
         </div>

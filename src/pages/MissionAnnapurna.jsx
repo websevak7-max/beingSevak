@@ -1,11 +1,24 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 const MissionAnnapurna = () => {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    function handleMessage(e) {
+      if (iframeRef.current && typeof e.data === 'number') {
+        iframeRef.current.style.height = e.data + 'px';
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <>
       <style>{`
         .mission-annapurna * { margin: 0; padding: 0; box-sizing: border-box; }
-        .mission-annapurna { font-family: 'Poppins', sans-serif; background: #f4f6f8; color: #315270; overflow-x: hidden; }
+        .mission-annapurna { font-family: 'Poppins', sans-serif; background: #f4f6f8; color: #315270; overflow-x: hidden; position: relative; }
         .mission-annapurna img { width: 100%; display: block; }
 
         .mission-annapurna .tax-box {
@@ -66,8 +79,8 @@ const MissionAnnapurna = () => {
         .mission-annapurna .blur1 { width: 350px; height: 350px; background: #00a3da33; top: 0; left: 0; }
         .mission-annapurna .blur2 { width: 350px; height: 350px; background: #3152702b; bottom: 0; right: 0; }
 
-        .mission-annapurna .about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; padding: 4px 4%; }
-        .mission-annapurna .about-image { position: relative; }
+        .mission-annapurna .about-section { display: grid; grid-template-columns: 1fr; gap: 40px; padding: 28px 5% 40px 5%; text-align: center; position: relative; z-index: 1; overflow: hidden; isolation: isolate; }
+        .mission-annapurna .about-image { position: relative; overflow: hidden; isolation: isolate; }
         .mission-annapurna .about-image img { border-radius: 35px; height: 600px; object-fit: cover; box-shadow: 0 25px 50px rgba(0,0,0,0.12); transition: 0.5s ease; }
         .mission-annapurna .about-image img:hover { transform: scale(1.03); box-shadow: 0 40px 90px rgba(0,0,0,0.2); }
         .mission-annapurna .about-image::before {
@@ -157,6 +170,7 @@ const MissionAnnapurna = () => {
 
         @media (max-width: 991px) {
           .mission-annapurna .hero, .mission-annapurna .about-section { grid-template-columns: 1fr; min-height: auto; padding: 60px 5% 40px; gap: 40px; text-align: center; }
+          .mission-annapurna .about-section { margin-top: 50px; }
           .mission-annapurna .hero-content { order: 1; }
           .mission-annapurna .hero-image { order: 2; margin: 0 auto; }
           .mission-annapurna .hero h1 { font-size: 42px; }
@@ -196,6 +210,7 @@ const MissionAnnapurna = () => {
           .mission-annapurna .floating-card p { font-size: 11px; margin: 0; }
           .mission-annapurna .donate-btn-hero { padding: 10px 20px; font-size: 14px; }
           .mission-annapurna .about-image img { height: 280px; border-radius: 24px; }
+          .mission-annapurna .about-section { margin-top: 50px; }
           .mission-annapurna .about-image::before { display: none; }
           .mission-annapurna .about-content h2 { font-size: 26px; }
           .mission-annapurna .small-title { font-size: 20px; }
@@ -250,11 +265,11 @@ const MissionAnnapurna = () => {
           <div className="blur blur2"></div>
         </section>
 
-        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 1 }}>
+        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 10, isolation: 'isolate' }}>
           <iframe
+            ref={iframeRef}
             src="/donations/donation-inline.html"
-            style={{ width: '100%', height: '650px', border: 'none', display: 'block', overflow: 'hidden' }}
-            scrolling="no"
+            style={{ width: '100%', height: '650px', border: 'none', display: 'block' }}
             title="Donate to Mission Annapurna"
           />
         </div>
