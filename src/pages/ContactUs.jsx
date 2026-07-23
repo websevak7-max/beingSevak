@@ -84,7 +84,7 @@ const ContactUs = () => {
         .contact-form-wrap:hover{box-shadow:0 16px 50px rgba(0,0,0,0.08);}
         .phone-card-wrap{position:relative;}
         .phone-card-wrap.open .info-card{border-color:var(--cyan);box-shadow:0 12px 32px rgba(0,0,0,0.08);}
-        .dial-popup{display:none;position:absolute;top:0;left:0;right:0;z-index:10;background:var(--white);border:1px solid #e2ecf5;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.12);padding:0;overflow:hidden;}
+        .dial-popup{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:10;background:var(--white);border:1px solid #e2ecf5;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.12);padding:0;overflow:hidden;}
         .phone-card-wrap.open .dial-popup{display:block;}
         .dial-inner{background:linear-gradient(145deg,#1a1a2e,#0f0f23);border-radius:16px;padding:14px 14px 12px;}
         .dial-display{text-align:center;margin-bottom:10px;}
