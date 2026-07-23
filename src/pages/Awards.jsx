@@ -84,7 +84,7 @@ const Awards = () => {
         .testimonial-card:hover .quote-icon{color:rgba(255,255,255,0.6)}
         .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
         .reveal.visible{opacity:1;transform:translateY(0)}
-        @media(max-width:768px){.awards-grid,.letter-grid{padding:20px}.values-grid{grid-template-columns:1fr}.testimonial-grid{grid-template-columns:1fr}}
+        @media(max-width:768px){.awards-grid{padding:20px;grid-template-columns:1fr}.letter-grid{padding:20px;grid-template-columns:1fr}.values-grid{grid-template-columns:1fr}.testimonial-grid{grid-template-columns:1fr}}
       `}</style>
 
       <section className="tax-box"><h1>Awards &amp; Achievements</h1></section>

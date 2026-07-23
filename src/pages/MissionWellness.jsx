@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 export default function MissionWellness() {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    function handleMessage(e) {
+      if (iframeRef.current && typeof e.data === 'number') {
+        iframeRef.current.style.height = e.data + 'px';
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -72,9 +85,9 @@ export default function MissionWellness() {
         .mission-wellness .card2 { bottom: 35px; right: -35px; }
         @keyframes mwFloat { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
 
-        .mission-wellness .about-section { width: 100%; padding: 60px 7%; display: flex; align-items: center; justify-content: space-between; gap: 70px; }
+        .mission-wellness .about-section { width: 100%; padding: 60px 7%; display: flex; align-items: center; justify-content: space-between; gap: 70px; position: relative; z-index: 1; overflow: hidden; isolation: isolate; }
         .mission-wellness .about-image, .mission-wellness .about-content { flex: 1; }
-        .mission-wellness .about-image { position: relative; }
+        .mission-wellness .about-image { position: relative; overflow: hidden; isolation: isolate; }
         .mission-wellness .about-image img { width: 100%; height: 450px; object-fit: cover; border-radius: 35px; transition: 0.5s; box-shadow: 0 18px 45px rgba(0,0,0,0.08); }
         .mission-wellness .about-image:hover img { transform: scale(1.04) rotate(-1deg); }
         .mission-wellness .about-content span { color: #00a3da; font-size: 20px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 15px; }
@@ -192,7 +205,7 @@ export default function MissionWellness() {
           .mission-wellness .floating-card:hover { transform: none; }
           .mission-wellness .floating-card h3 { font-size: 20px; }
           .mission-wellness .floating-card p { font-size: 12px; }
-          .mission-wellness .about-section { flex-direction: column; text-align: center; gap: 35px; padding: 50px 5%; }
+          .mission-wellness .about-section { flex-direction: column; text-align: center; gap: 35px; padding: 50px 5%; margin-top: 50px; clip-path: inset(0); }
           .mission-wellness .about-image img { height: auto; aspect-ratio: 16/10; max-height: 400px; border-radius: 28px; }
           .mission-wellness .about-image:hover img { transform: none; }
           .mission-wellness .about-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -217,6 +230,7 @@ export default function MissionWellness() {
           .mission-wellness .sevak-btn { white-space: normal; }
           .mission-wellness .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
           .mission-wellness .tax-box { height: auto; padding: 15px; }
+          .mission-wellness .about-image img { box-shadow: none; }
         }
         @media (max-width: 600px) {
           .mission-wellness .hero-section { padding: 30px 5% 20px; }
@@ -259,6 +273,12 @@ export default function MissionWellness() {
           .mission-wellness .testimonial-grid { grid-template-columns: 1fr; gap: 16px; }
           .mission-wellness .testimonial-card { padding: 22px; border-radius: 22px; }
           .mission-wellness .testimonial-card p { font-size: 14px; }
+          .mission-wellness .about-section { margin-top: 50px; }
+          .mission-wellness #donate { margin-bottom: 30px; }
+        }
+        @media (max-width: 360px) {
+          .mission-wellness .about-section { margin-top: 60px; }
+          .mission-wellness #donate { margin-bottom: 40px; }
         }
       `}</style>
 
@@ -300,11 +320,11 @@ export default function MissionWellness() {
           </div>
         </section>
 
-        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 1 }}>
+        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 10, isolation: 'isolate' }}>
           <iframe
+            ref={iframeRef}
             src="/donations/donation-inline-arogya.html"
-            style={{ width: '100%', height: '650px', border: 'none', display: 'block', overflow: 'hidden' }}
-            scrolling="no"
+            style={{ width: '100%', height: '650px', border: 'none', display: 'block' }}
             title="Donate to Mission Aarogya"
           />
         </div>

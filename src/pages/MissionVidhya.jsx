@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 const MissionVidhya = () => {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    function handleMessage(e) {
+      if (iframeRef.current && typeof e.data === 'number') {
+        iframeRef.current.style.height = e.data + 'px';
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -72,8 +85,8 @@ const MissionVidhya = () => {
         .mission-vidhya .card2 { bottom: 70px; right: 20px; }
         @keyframes viFloat { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-        .mission-vidhya .about-section { width: 100%; display: flex; align-items: center; justify-content: center; gap: 45px; padding: 80px 5%; background: #fff; }
-        .mission-vidhya .about-image { position: relative; }
+        .mission-vidhya .about-section { width: 100%; display: flex; align-items: center; justify-content: center; gap: 45px; padding: 80px 5%; background: #fff; position: relative; z-index: 1; overflow: hidden; isolation: isolate; }
+        .mission-vidhya .about-image { position: relative; overflow: hidden; isolation: isolate; }
         .mission-vidhya .about-image img { border-radius: 35px; height: 450px; object-fit: cover; box-shadow: 0 25px 50px rgba(0,0,0,0.12); transition: 0.5s ease; }
         .mission-vidhya .about-image img:hover { transform: scale(1.03); box-shadow: 0 40px 90px rgba(0,0,0,0.2); }
         .mission-vidhya .about-image::before {
@@ -167,6 +180,8 @@ const MissionVidhya = () => {
 
         @media (max-width: 991px) {
           .mission-vidhya .hero-section, .mission-vidhya .about-section { flex-direction: column; text-align: center; }
+          .mission-vidhya .about-section { margin-top: 50px; clip-path: inset(0); }
+          .mission-vidhya #donate { margin-bottom: 30px; }
           .mission-vidhya .hero-left, .mission-vidhya .about-content { max-width: 100%; }
           .mission-vidhya .hero-buttons { justify-content: center; }
           .mission-vidhya .hero-left h1 { font-size: 46px; }
@@ -179,6 +194,7 @@ const MissionVidhya = () => {
           .mission-vidhya .sevak-donation-content { flex-direction: column; text-align: center; gap: 20px; min-height: auto; }
           .mission-vidhya .sevak-title { font-size: 34px; }
           .mission-vidhya .testimonial-grid { grid-template-columns: 1fr; }
+          .mission-vidhya .about-image img { box-shadow: none; }
         }
         @media (max-width: 600px) {
           .mission-vidhya .hero-section { padding: 50px 5% 30px; }
@@ -203,6 +219,12 @@ const MissionVidhya = () => {
           .mission-vidhya .sevak-title { font-size: 24px; }
           .mission-vidhya .sevak-desc { font-size: 14px; }
           .mission-vidhya .sevak-btn { padding: 12px 28px; font-size: 14px; white-space: normal; }
+          .mission-vidhya .about-section { margin-top: 50px; }
+          .mission-vidhya #donate { margin-bottom: 30px; }
+        }
+        @media (max-width: 360px) {
+          .mission-vidhya .about-section { margin-top: 60px; }
+          .mission-vidhya #donate { margin-bottom: 40px; }
         }
       `}</style>
 
@@ -235,11 +257,11 @@ const MissionVidhya = () => {
           </div>
         </section>
 
-        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', position: 'relative', zIndex: 1 }}>
+        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', position: 'relative', zIndex: 10, isolation: 'isolate' }}>
           <iframe
+            ref={iframeRef}
             src="/donations/donation-inline-vidhya.html"
-            style={{ width: '100%', height: '650px', border: 'none', display: 'block', overflow: 'hidden' }}
-            scrolling="no"
+            style={{ width: '100%', height: '650px', border: 'none', display: 'block' }}
             title="Donate to Mission Vidhya"
           />
         </div>

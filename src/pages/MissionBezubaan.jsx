@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 const MissionBezubaan = () => {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    function handleMessage(e) {
+      if (iframeRef.current && typeof e.data === 'number') {
+        iframeRef.current.style.height = e.data + 'px';
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -80,9 +93,9 @@ const MissionBezubaan = () => {
         .mission-bezubaan .card2 { bottom: 35px; right: -35px; }
         @keyframes bzFloat { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
 
-        .mission-bezubaan .about-section { width: 100%; padding: 0px 7%; display: flex; align-items: center; justify-content: space-between; gap: 70px; }
+        .mission-bezubaan .about-section { width: 100%; padding: 0px 7%; display: flex; align-items: center; justify-content: space-between; gap: 70px; position: relative; z-index: 1; overflow: hidden; isolation: isolate; }
         .mission-bezubaan .about-image, .mission-bezubaan .about-content { flex: 1; }
-        .mission-bezubaan .about-image { position: relative; }
+        .mission-bezubaan .about-image { position: relative; overflow: hidden; isolation: isolate; }
         .mission-bezubaan .about-image img {
           width: 100%; height: 600px; object-fit: cover; border-radius: 35px;
           transition: 0.5s; box-shadow: 0 18px 45px rgba(0,0,0,0.08);
@@ -261,7 +274,8 @@ const MissionBezubaan = () => {
           .mission-bezubaan .image-box { max-width: 100%; }
           .mission-bezubaan .image-box img { height: 280px; border-radius: 20px; transform: none; animation: none; }
           .mission-bezubaan .about-image img { height: 320px; border-radius: 22px; }
-          .mission-bezubaan .about-section { gap: 30px; }
+          .mission-bezubaan .about-section { gap: 30px; margin-top: 50px; clip-path: inset(0); }
+          .mission-bezubaan #donate { margin-bottom: 30px; }
           .mission-bezubaan .card1 { top: 0; left: 0; border-radius: 0 0 12px 0; }
           .mission-bezubaan .card2 { bottom: 0; right: 0; border-radius: 12px 0 0 0; }
           .mission-bezubaan .floating-card { padding: 5px 8px; }
@@ -284,6 +298,12 @@ const MissionBezubaan = () => {
           .mission-bezubaan .sevak-title { font-size: 28px; }
           .mission-bezubaan .sevak-desc { font-size: 14px; }
           .mission-bezubaan .sevak-btn { padding: 12px 28px; font-size: 14px; white-space: normal; }
+          .mission-bezubaan .about-section { margin-top: 50px; }
+          .mission-bezubaan #donate { margin-bottom: 30px; }
+        }
+        @media (max-width: 360px) {
+          .mission-bezubaan .about-section { margin-top: 60px; }
+          .mission-bezubaan #donate { margin-bottom: 40px; }
         }
       `}</style>
 
@@ -324,11 +344,11 @@ const MissionBezubaan = () => {
           </div>
         </section>
 
-        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 1 }}>
+        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', marginBottom: '0', position: 'relative', zIndex: 10, isolation: 'isolate' }}>
           <iframe
+            ref={iframeRef}
             src="/donations/donation-inline-bezubaan.html"
-            style={{ width: '100%', height: '650px', border: 'none', display: 'block', overflow: 'hidden' }}
-            scrolling="no"
+            style={{ width: '100%', height: '650px', border: 'none', display: 'block' }}
             title="Donate to Mission Bezubaan"
           />
         </div>

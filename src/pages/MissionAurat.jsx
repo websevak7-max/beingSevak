@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 
 const MissionAurat = () => {
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    function handleMessage(e) {
+      if (iframeRef.current && typeof e.data === 'number') {
+        iframeRef.current.style.height = e.data + 'px';
+      }
+    }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -57,8 +70,9 @@ const MissionAurat = () => {
           width: 100%; max-width: 1100px; margin: 10px auto; padding: 50px;
           background: #ffffff; border-radius: 35px; display: flex; align-items: center;
           justify-content: center; gap: 50px; box-shadow: 0 10px 35px rgba(0,0,0,0.05);
+          position: relative; z-index: 1; overflow: hidden; isolation: isolate;
         }
-        .mission-aurat .about-image { flex: 1; display: flex; justify-content: center; }
+        .mission-aurat .about-image { flex: 1; display: flex; justify-content: center; overflow: hidden; isolation: isolate; }
         .mission-aurat .about-image img { width: 100%; max-width: 420px; height: 500px; object-fit: cover; border-radius: 28px; transition: 0.4s; }
         .mission-aurat .about-image img:hover { transform: scale(1.03); }
         .mission-aurat .about-content { flex: 1; }
@@ -161,6 +175,8 @@ const MissionAurat = () => {
 
         @media (max-width: 991px) {
           .mission-aurat .hero-content, .mission-aurat .about-section { flex-direction: column; text-align: center; }
+          .mission-aurat .about-section { margin-top: 50px; clip-path: inset(0); }
+          .mission-aurat #donate { margin-bottom: 30px; }
           .mission-aurat .hero-left, .mission-aurat .about-content { max-width: 100%; }
           .mission-aurat .hero-buttons { justify-content: center; }
           .mission-aurat .hero-left h1 { font-size: 48px; }
@@ -216,6 +232,12 @@ const MissionAurat = () => {
           .mission-aurat .sevak-title { font-size: 24px; }
           .mission-aurat .sevak-desc { font-size: 14px; }
           .mission-aurat .sevak-btn { padding: 12px 28px; font-size: 14px; white-space: normal; }
+          .mission-aurat .about-section { margin-top: 50px; }
+          .mission-aurat #donate { margin-bottom: 30px; }
+        }
+        @media (max-width: 360px) {
+          .mission-aurat .about-section { margin-top: 60px; }
+          .mission-aurat #donate { margin-bottom: 40px; }
         }
       `}</style>
 
@@ -250,11 +272,11 @@ const MissionAurat = () => {
           </div>
         </section>
 
-        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', position: 'relative', zIndex: 1, marginBottom: '0' }}>
+        <div id="donate" style={{ width: '100%', background: '#f4f7fb', padding: '0', overflow: 'hidden', position: 'relative', zIndex: 10, isolation: 'isolate', marginBottom: '0' }}>
           <iframe
+            ref={iframeRef}
             src="/donations/donation-inline-aurat.html"
-            style={{ width: '100%', height: '650px', border: 'none', display: 'block', overflow: 'hidden' }}
-            scrolling="no"
+            style={{ width: '100%', height: '650px', border: 'none', display: 'block' }}
             title="Donate to Mission Aurat"
           />
         </div>
