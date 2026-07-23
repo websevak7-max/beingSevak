@@ -82,13 +82,10 @@ const ContactUs = () => {
         .social-links a:hover{background:var(--cyan);color:var(--white);border-color:var(--cyan);transform:translateY(-4px) scale(1.05);box-shadow:0 8px 20px rgba(0,162,217,0.25);}
         .contact-form-wrap{background:var(--white);border:1px solid #e2ecf5;border-radius:20px;padding:36px 32px;box-shadow:0 8px 30px rgba(0,0,0,0.05);transition:box-shadow 0.4s ease;}
         .contact-form-wrap:hover{box-shadow:0 16px 50px rgba(0,0,0,0.08);}
-        .phone-card-inline{flex-direction:column !important;align-items:stretch !important;height:400px !important;padding-bottom:12px !important;}
-        .phone-card-top{display:flex;align-items:center;gap:16px;cursor:pointer;}
-        .phone-card-top .icon-box{width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg, var(--cyan), var(--mid));display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--white);flex-shrink:0;}
-        .phone-card-top h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:4px;}
-        .phone-card-top p{font-size:0.88rem;color:var(--text-mid);line-height:1.6;}
-        .dial-wrap{display:none;margin-top:0;}
-        .dial-wrap.open{display:block;margin-top:12px;}
+        .phone-card-wrap{position:relative;}
+        .phone-card-wrap.open .info-card{border-color:var(--cyan);box-shadow:0 12px 32px rgba(0,0,0,0.08);}
+        .dial-popup{display:none;position:absolute;top:0;left:0;right:0;z-index:10;background:var(--white);border:1px solid #e2ecf5;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.12);padding:0;overflow:hidden;}
+        .phone-card-wrap.open .dial-popup{display:block;}
         .dial-inner{background:linear-gradient(145deg,#1a1a2e,#0f0f23);border-radius:16px;padding:14px 14px 12px;}
         .dial-display{text-align:center;margin-bottom:10px;}
         .dial-display-text{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#00A2D9;letter-spacing:2px;min-height:24px;word-break:break-all;}
@@ -139,15 +136,15 @@ const ContactUs = () => {
             <p>Whether you want to volunteer, collaborate, or learn more about our work, we're just a message away. Visit
               any of our offices across India.</p>
 
-            <div className={`info-card${dialOpen ? ' phone-card-inline' : ''}`}>
-              <div className="phone-card-top" onClick={() => setDialOpen(!dialOpen)}>
+            <div className={`phone-card-wrap${dialOpen ? ' open' : ''}`}>
+              <div className="info-card" style={{cursor:'pointer'}} onClick={() => setDialOpen(!dialOpen)}>
                 <div className="icon-box"><i className="fas fa-phone"></i></div>
                 <div>
                   <h4>Phone</h4>
                   <p>+91 8879035035</p>
                 </div>
               </div>
-              <div className={`dial-wrap${dialOpen ? ' open' : ''}`}>
+              <div className="dial-popup">
                 <div className="dial-inner">
                   <div className="dial-display">
                     <div className="dial-display-text">{dialedNumber}</div>
