@@ -48,20 +48,20 @@ const AboutBSCT = () => {
           gap: 0; position: relative; overflow: hidden; padding: 10px 8%;
         }
         .about-page .hero-content {
-          position: relative; z-index: 2; padding: 0 180px 0 120px; text-align: left;
+          position: relative; z-index: 2; padding: 0; margin: 35px 0; text-align: left;
         }
         .about-page .hero-content .tag,
         .about-page .hero-content > span {
-          background: transparent; color: #00a3da; padding: 0 30px 0 5px; border-radius: 0;
-          display: inline-block; width: 160%; margin: 25px; font-weight: 800; font-size: 30px; letter-spacing: 1px;
+          background: transparent; color: #00a3da; padding: 0; border-radius: 0;
+          display: inline-block; margin: 35px 0 25px 0; font-weight: 800; font-size: 30px; letter-spacing: 1px;
         }
-        .about-page .hero h1 { font-size: 62px; line-height: 1.1; margin-bottom: 25px; color: var(--navy); }
+        .about-page .hero h1 { font-size: 62px; line-height: 1.1; margin-bottom: 25px; color: var(--navy); font-weight: 800; }
         .about-page .hero h1 span { color: #00a3da; }
         .about-page .hero p { font-size: 18px; line-height: 1.9; color: #66788a; margin-bottom: 35px; }
-        .about-page .hero-buttons { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+        .about-page .hero-buttons { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-start; padding: 0; }
         .about-page .hero-buttons .donate-btn {
-          display: inline-block; padding: 18px 36px 18px 15px; background: #00a3da; color: #fff; text-decoration: none;
-          border-radius: 6px; font-weight: 700; font-size: 18px; transition: 0.4s;
+          display: inline-block; padding: 15px 36px; background: #00a3da; color: #fff; text-decoration: none;
+          border-radius: 6px; font-weight: 700; transition: 0.4s;
           box-shadow: 0 10px 25px rgba(11, 77, 120, 0.25);
         }
         .about-page .hero-buttons .donate-btn:hover { background: #007d94; transform: translateY(-1px); }

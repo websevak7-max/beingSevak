@@ -127,7 +127,11 @@ export default function SevakSevaKendra() {
         .sevak-seva-kendra .techvision-content-side { flex: 1; min-width: 320px; }
         .sevak-seva-kendra .techvision-mini-title {
           display: inline-block; padding: 10px 22px; background: #00a3da; color: #fff; border-radius: 60px;
-          font-size: 20px; font-weight: 700; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(163,218,0.25);
+          font-size: 20px; font-weight: 700; margin-bottom: 20px;
+          transition: none;
+        }
+        .sevak-seva-kendra .techvision-mini-title:hover {
+          background: #00a3da; color: #fff;
         }
         .sevak-seva-kendra .techvision-content-side h3 { font-size: 38px; line-height: 1.1; color: #111; margin-bottom: 28px; font-weight: 800; }
         .sevak-seva-kendra .techvision-content-side p { font-size: 17px; line-height: 1.9; color: #555; margin-bottom: 18px; }
@@ -252,7 +256,7 @@ export default function SevakSevaKendra() {
 
         <section className="about-section" id="about">
           <div className="about-image">
-            <img src="/images/li.jpeg" alt="Library" />
+            <img src="/images/library.jpeg" alt="Library" />
           </div>
           <div className="about-content">
             <span className="mini-title">Library</span>

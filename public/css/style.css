@@ -306,8 +306,7 @@ input, select { font-family: inherit; outline: none; border: none; }
 /* ================================
    SHOW ON HOVER (DESKTOP)
 ================================ */
-.nav-item.dropdown:hover .dropdown-menu,
-.nav-item.dropdown:focus-within .dropdown-menu {
+.nav-item.dropdown.open .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -347,7 +346,7 @@ input, select { font-family: inherit; outline: none; border: none; }
   transition: transform 0.3s ease;
 }
 
-.nav-item.dropdown:hover > a i {
+.nav-item.dropdown.open > a i {
   transform: rotate(180deg);
 }
 

@@ -83,7 +83,7 @@ function App() {
         <Route path="/mission-wellness" element={<MissionWellness />} />
         <Route path="/sevak-seva-kendra" element={<SevakSevaKendra />} />
         <Route path="/sevak-nivash" element={<SevakNivash />} />
-        <Route path="/mission-eco" element={<MissionEco />} />
+        {/* <Route path="/mission-eco" element={<MissionEco />} /> */}
         <Route path="/mission-beach" element={<MissionBeach />} />
         <Route path="/anndaan" element={<Anndaan />} />
         <Route path="/ngo-collaboration" element={<NGOCollaboration />} />

@@ -21,6 +21,7 @@ export default function IndividualDonation() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [showEmptyMsg, setShowEmptyMsg] = useState(false);
+  const [phoneErr, setPhoneErr] = useState('');
 
   const handlePreset = (val) => {
     setQuickAmt(val);
@@ -58,6 +59,27 @@ export default function IndividualDonation() {
     alert(`Donation: \u20B9${total.toLocaleString('en-IN')} INR\nItems: ${items}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}`);
   };
 
+  const handlePhoneChange = (e) => {
+    const val = e.target.value;
+    if (!/^[0-9]*$/.test(val)) {
+      setPhoneErr('Only numeric characters accept');
+      setTimeout(() => setPhoneErr(''), 2000);
+      return;
+    }
+    if (val.length > 10) {
+      setPhoneErr('Only 10 digits allowed');
+      setTimeout(() => setPhoneErr(''), 2000);
+      return;
+    }
+    setPhone(val);
+    if (val.length === 10 && !/^[6-9]/.test(val)) {
+      setPhoneErr('Mobile number must start with 6, 7, 8 or 9');
+      setTimeout(() => setPhoneErr(''), 2000);
+    } else {
+      setPhoneErr('');
+    }
+  };
+
   return (
     <>
       <style>{`
@@ -85,15 +107,13 @@ export default function IndividualDonation() {
           top: 0;
           z-index: 100;
           box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-          overflow: hidden;
         }
         .qd-inner {
           display: flex;
           align-items: center;
           gap: 10px;
           justify-content: center;
-          flex-wrap: wrap;
-          max-width: 100%;
+          flex-wrap: nowrap;
         }
         .currency-select {
           display: flex;
@@ -107,7 +127,6 @@ export default function IndividualDonation() {
           font-weight: 600;
           color: #000;
           cursor: pointer;
-          flex-shrink: 0;
         }
         .amount-input-wrap {
           flex: 0 0 auto;
@@ -133,7 +152,6 @@ export default function IndividualDonation() {
           cursor: pointer;
           transition: all 0.2s;
           font-family: 'Open Sans', sans-serif;
-          white-space: nowrap;
         }
         .preset-amt:hover { border-color: #00A3DA; }
         .preset-amt.active {
@@ -143,7 +161,6 @@ export default function IndividualDonation() {
         }
         .category-select {
           position: relative;
-          flex-shrink: 0;
         }
         .category-select select {
           appearance: none;
@@ -171,7 +188,7 @@ export default function IndividualDonation() {
           display: flex;
           gap: 6px;
           align-items: center;
-          flex-shrink: 0;
+          min-width: 200px;
         }
         .pay-icon { width: 30px; height: 20px; object-fit: contain; border: none; }
         .pay-icon.visa { filter: invert(28%) sepia(88%) saturate(5000%) hue-rotate(200deg) brightness(90%) contrast(90%); }
@@ -217,38 +234,6 @@ export default function IndividualDonation() {
           box-shadow: 0 8px 25px rgba(0,163,218,0.35);
         }
         .quick-donate-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,163,218,0.45); }
-        @media(max-width:1024px) {
-          .qd-inner { gap: 8px; }
-          .payment-icons { display: none; }
-          .amount-input { width: 100px; }
-        }
-        @media(max-width:768px) {
-          .quick-donate-bar { padding: 12px 4%; }
-          .qd-inner { gap: 6px; justify-content: center; }
-          .preset-amt { padding: 6px 10px; font-size: 12px; }
-          .amount-input { width: 80px; padding: 6px 8px; font-size: 13px; }
-          .currency-select { padding: 6px 10px; font-size: 13px; }
-          .category-select select { padding: 6px 24px 6px 8px; font-size: 12px; }
-          .quick-donate-btn { padding: 8px 16px; font-size: 12px; }
-          .quick-donate-pulse-wrap { margin-left: 6px; }
-        }
-        @media(max-width:600px) {
-          .qd-inner { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-          .payment-icons { display: none; }
-          .preset-amt { padding: 6px 8px; font-size: 11px; }
-          .amount-input { width: 70px; padding: 6px 8px; font-size: 12px; }
-          .quick-donate-btn { padding: 8px 14px; font-size: 11px; }
-          .quick-donate-pulse-wrap { margin-left: 4px; }
-        }
-        @media(max-width:420px) {
-          .qd-inner { gap: 5px; }
-          .preset-amt { padding: 5px 7px; font-size: 10px; }
-          .amount-input { width: 60px; padding: 5px 6px; font-size: 11px; }
-          .currency-select { padding: 5px 8px; font-size: 12px; }
-          .category-select select { padding: 5px 20px 5px 6px; font-size: 11px; }
-          .quick-donate-btn { padding: 7px 12px; font-size: 10px; letter-spacing: 0; }
-          .quick-donate-pulse-wrap { margin-left: 3px; }
-        }
         .individual-hero {
           padding: 100px 8% 60px;
           text-align: center;
@@ -475,6 +460,7 @@ export default function IndividualDonation() {
           font-family: 'Montserrat', sans-serif;
         }
         .basket-empty-msg.show { display: block; }
+        .basket-field-err{display:block;color:#e53935;font-size:11px;margin-top:4px;font-family:'Open Sans',sans-serif;padding-left:80px}
         @media (max-width: 500px) {
           .basket-panel { width: 100vw; }
         }
@@ -588,8 +574,9 @@ export default function IndividualDonation() {
             <input type="text" className="basket-input" placeholder="Enter your name" value={name} onChange={e => setName(e.target.value)} />
             <div className="basket-phone-row">
               <span className="phone-flag">&#127470;&#127475; +91</span>
-              <input type="tel" className="basket-input phone-inp" placeholder="Phone number" value={phone} onChange={e => setPhone(e.target.value)} />
+              <input type="tel" className="basket-input phone-inp" placeholder="Phone number" value={phone} onChange={handlePhoneChange} />
             </div>
+            {phoneErr && <span className="basket-field-err">{phoneErr}</span>}
             <input type="email" className="basket-input" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} />
           </div>
 

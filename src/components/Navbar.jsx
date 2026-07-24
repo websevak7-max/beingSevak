@@ -113,7 +113,7 @@ export default function Navbar() {
                 <Link to="/mission-wellness" onClick={closeAll}>Mission Arogya</Link>
                 <Link to="/sevak-seva-kendra" onClick={closeAll}>Sevak Seva Kendra</Link>
                 {/* <Link to="/mission-beach" onClick={closeAll}>Mission Beach Sevak</Link> */}
-                <Link to="/mission-eco" onClick={closeAll}>Mission Eco-Warriors</Link>
+                {/* <Link to="/mission-eco" onClick={closeAll}>Mission Eco-Warriors</Link> */}
               </div>
             </div>
             <div className={`nav-item dropdown ${desktopDropdown === 'news' ? 'open' : ''}`}
@@ -186,7 +186,7 @@ export default function Navbar() {
               <Link to="/mission-wellness" onClick={closeAll}>Mission Arogya</Link>
               <Link to="/sevak-seva-kendra" onClick={closeAll}>Sevak Seva Kendra</Link>
               <Link to="/mission-beach" onClick={closeAll}>Mission Beach Sevak</Link>
-              <Link to="/mission-eco" onClick={closeAll}>Mission Eco-Warriors</Link>
+              {/* <Link to="/mission-eco" onClick={closeAll}>Mission Eco-Warriors</Link> */}
             </div>
           </div>
           <div className={`mnav-item has-sub ${openDropdown === 'news' ? 'open' : ''}`}>

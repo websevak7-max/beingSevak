@@ -41,6 +41,60 @@ const ContactUs = () => {
     setFormData({ ...formData, [e.target.name || e.target.id]: e.target.value });
   };
 
+  const handleFirstNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setFormData({ ...formData, firstName: val });
+      setFirstNameErr('');
+    } else {
+      setFirstNameErr('Only alphabetical letters accept');
+      showError(setFirstNameErr);
+    }
+  };
+
+  const handleLastNameChange = (e) => {
+    const val = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(val)) {
+      setFormData({ ...formData, lastName: val });
+      setLastNameErr('');
+    } else {
+      setLastNameErr('Only alphabetical letters accept');
+      showError(setLastNameErr);
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const val = e.target.value;
+    if (!/^[0-9]*$/.test(val)) {
+      setPhoneErr('Only numeric characters accept');
+      showError(setPhoneErr);
+      return;
+    }
+    if (val.length > 10) {
+      setPhoneErr('Only 10 digits allowed');
+      showError(setPhoneErr);
+      return;
+    }
+    setFormData({ ...formData, phone: val });
+    if (val.length === 10 && !/^[6-9]/.test(val)) {
+      setPhoneErr('Mobile number must start with 6, 7, 8 or 9');
+      showError(setPhoneErr);
+    } else {
+      setPhoneErr('');
+    }
+  };
+
+  const handleMessageChange = (e) => {
+    const val = e.target.value;
+    if (val.length <= 100) {
+      setFormData({ ...formData, message: val });
+      setMessageErr('');
+    } else {
+      setMessageErr('Only 100 characters accept');
+      showError(setMessageErr);
+    }
+  };
+
   return (
     <>
       <style>{`
@@ -93,6 +147,7 @@ const ContactUs = () => {
         .submit-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);transition:0.5s;}
         .submit-btn:hover::before{left:100%;}
         .submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,162,217,0.35);}
+        .field-err{display:block;color:#e53935;font-size:0.75rem;margin-top:4px;font-family:'Open Sans',sans-serif;}
         .submit-btn:active{transform:translateY(-1px);}
         .map-section{background:var(--light-bg);padding:60px 24px;}
         .map-section .section-label{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;color:var(--navy);margin-bottom:24px;text-align:center;}
@@ -118,7 +173,7 @@ const ContactUs = () => {
               <div className="icon-box"><i className="fas fa-phone"></i></div>
               <div>
                 <h4>Phone</h4>
-                <p><a href="tel:+918879035035">+91 8879035035</a></p>
+                <p>+91 8879035035</p>
               </div>
             </div>
 
@@ -236,7 +291,7 @@ const ContactUs = () => {
                 </div>
                 <div className="form-group">
                   <label>Message <span className="req">*</span></label>
-                  <textarea id="cf_message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleChange} required></textarea>
+                    <textarea id="cf_message" name="message" placeholder="Write your message here..." value={formData.message} onChange={handleChange} required></textarea>
                 </div>
                 <button type="submit" className="submit-btn">
                   <i className="fas fa-paper-plane"></i> Send Message

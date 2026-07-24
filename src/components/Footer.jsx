@@ -34,7 +34,7 @@ export default function Footer() {
             <li><Link to="/mission-wellness">Mission Arogya</Link></li>
             <li><Link to="/sevak-seva-kendra">Sevak Seva Kendra</Link></li>
             <li><Link to="/mission-beach">Mission Beach Sevak</Link></li>
-            <li><Link to="/mission-eco">Mission Eco-Warriors</Link></li>
+            {/* <li><Link to="/mission-eco">Mission Eco-Warriors</Link></li> */}
           </ul>
         </div>
         <div className="footer-col">

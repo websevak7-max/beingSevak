@@ -575,6 +575,23 @@
         font-size: 0.75rem;
       }
     }
+    .name-error {
+      display: none;
+      color: #e53935;
+      font-size: 0.72rem;
+      font-family: 'Open Sans', sans-serif;
+      margin-top: 4px;
+      background: #fff0f0;
+      border: 1px solid #fdd;
+      border-radius: 6px;
+      padding: 4px 10px;
+      animation: popIn 0.3s ease;
+    }
+    .name-error.show { display: inline-block; }
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(-4px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 
@@ -667,11 +684,13 @@
       <div class="form-grid">
         <div class="form-group">
           <label>First Name <span class="req">*</span></label>
-          <input type="text" id="fname" placeholder="First Name" />
+          <input type="text" id="fname" placeholder="First Name" oninput="validateName(this,'fname-error')" />
+          <span class="name-error" id="fname-error">Only alphabetical letters accept</span>
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" id="lname" placeholder="Last Name" />
+          <input type="text" id="lname" placeholder="Last Name" oninput="validateName(this,'lname-error')" />
+          <span class="name-error" id="lname-error">Only alphabetical letters accept</span>
         </div>
         <div class="form-group">
           <label>Email <span class="req">*</span></label>
@@ -679,11 +698,13 @@
         </div>
         <div class="form-group">
           <label>Phone <span class="req">*</span></label>
-          <input type="tel" id="phone" placeholder="Phone Number" />
+          <input type="tel" id="phone" placeholder="Phone Number" oninput="validatePhone(this,'phone-error')" />
+          <span class="name-error" id="phone-error">Only numeric characters accept</span>
         </div>
         <div class="form-group full">
           <label>Message (optional)</label>
-          <textarea id="message" placeholder="Leave a message..."></textarea>
+          <textarea id="message" placeholder="Leave a message..." maxlength="100" oninput="validateMsg(this)"></textarea>
+          <span class="name-error" id="msg-error">Only 100 characters accept</span>
         </div>
       </div>
 
@@ -700,6 +721,53 @@
   </div>
 
   <script>
+    let nameTimers = {};
+    function validateName(el, errorId) {
+      const err = document.getElementById(errorId);
+      if (/[^a-zA-Z\s]/.test(el.value)) {
+        el.value = el.value.replace(/[^a-zA-Z\s]/g, '');
+        err.classList.add('show');
+        clearTimeout(nameTimers[errorId]);
+        nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+      }
+    }
+    function validatePhone(el, errorId) {
+      const err = document.getElementById(errorId);
+      if (/[^0-9]/.test(el.value)) {
+        el.value = el.value.replace(/[^0-9]/g, '');
+        err.textContent = 'Only numeric characters accept';
+        err.classList.add('show');
+        clearTimeout(nameTimers[errorId]);
+        nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+        return;
+      }
+      if (el.value.length > 10) {
+        el.value = el.value.slice(0, 10);
+        err.textContent = 'Only 10 digits allowed';
+        err.classList.add('show');
+        clearTimeout(nameTimers[errorId]);
+        nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+        return;
+      }
+      if (el.value.length === 10 && !/^[6-9]/.test(el.value)) {
+        err.textContent = 'Mobile number must start with 6, 7, 8 or 9';
+        err.classList.add('show');
+        clearTimeout(nameTimers[errorId]);
+        nameTimers[errorId] = setTimeout(() => err.classList.remove('show'), 2000);
+        return;
+      }
+      err.classList.remove('show');
+    }
+    function validateMsg(el) {
+      const err = document.getElementById('msg-error');
+      if (el.value.length >= 100) {
+        err.classList.add('show');
+        clearTimeout(nameTimers['msg-error']);
+        nameTimers['msg-error'] = setTimeout(() => err.classList.remove('show'), 2000);
+      } else {
+        err.classList.remove('show');
+      }
+    }
     function selectDist(el) {
       document.querySelectorAll('.dist-tab').forEach(b => b.classList.remove('active'));
       el.classList.add('active');

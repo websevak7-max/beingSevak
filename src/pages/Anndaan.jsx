@@ -74,7 +74,7 @@ export default function Anndaan() {
         .anndaan-page .rotiseva-gallery { grid-template-columns: 1fr 1fr; }
         .anndaan-page .mealwave-gallery { grid-template-columns: 1fr 1fr; }
         .anndaan-page .sweetmeal-grid { grid-template-columns: repeat(4,1fr); margin-top: 50px; }
-        .anndaan-page .snackdrive-container { grid-template-columns: 1fr; text-align: center; overflow: visible; }
+        .anndaan-page .snackdrive-container { grid-template-columns: 1fr; text-align: center; }
         .anndaan-page .snackdrive-content { max-width: 800px; margin: 0 auto; }
         .anndaan-page .snackdrive-images { grid-template-columns: repeat(3,1fr); }
         .anndaan-page .nutritioncare-gallery { grid-template-columns: 1fr 1fr; }
