@@ -17,7 +17,7 @@ export default function NGOCollaboration() {
           --text-dark: #1a1a2e;
           --text-mid: #4a5568;
         }
-        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); overflow-x: hidden; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); overflow-x: hidden; scroll-behavior: smooth; }
         .ngo-collab-section {
           width: 100%;
           padding: 100px 8%;
@@ -165,14 +165,14 @@ export default function NGOCollaboration() {
       <section className="ngo-collab-section">
         <div className="ngo-collab-container">
           <div className="ngo-top-heading">
-            <span>BSCT Partnerships</span>
+            <span style={{cursor:'pointer'}} onClick={() => document.getElementById('ngo-content').scrollIntoView({ behavior: 'smooth' })}>BSCT Partnerships</span>
             <h2>NGO Collaboration & Partnerships</h2>
             <p>
               Together, we can create stronger communities and lasting change through meaningful partnerships and collective social responsibility.
             </p>
           </div>
 
-          <div className="ngo-content-grid">
+          <div className="ngo-content-grid" id="ngo-content">
             <div className="ngo-left-content">
               <div className="ngo-card large-card">
                 <h3>Creating Sustainable Impact</h3>

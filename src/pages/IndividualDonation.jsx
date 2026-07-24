@@ -14,7 +14,7 @@ const missions = [
 export default function IndividualDonation() {
   const [quickAmt, setQuickAmt] = useState('');
   const [activePreset, setActivePreset] = useState(200);
-  const [quickCategory, setQuickCategory] = useState('Most Needed Now');
+
   const [basketOpen, setBasketOpen] = useState(false);
   const [cartQty, setCartQty] = useState({ annapurna: 0, vidhya: 0, aurat: 0, atma: 0, bezubaan: 0 });
   const [name, setName] = useState('');
@@ -267,6 +267,14 @@ export default function IndividualDonation() {
           .individual-hero p { font-size: 16px; }
           .individual-content { padding: 40px 5%; }
           .individual-grid { grid-template-columns: 1fr; }
+          .quick-donate-bar { padding: 10px 12px; }
+          .qd-inner { flex-wrap: wrap; gap: 8px; justify-content: center; }
+          .amount-input-wrap { flex: 1 1 100%; }
+          .amount-input { width: 100%; }
+          .preset-amt { display: none; }
+          .payment-icons { display: none; }
+          .quick-donate-pulse-wrap { margin-left: 0; width: 100%; }
+          .quick-donate-btn { width: 100%; text-align: center; }
         }
         .basket-overlay {
           display: block !important;
@@ -486,16 +494,6 @@ export default function IndividualDonation() {
               &#8377;{val} INR
             </button>
           ))}
-          <div className="category-select">
-            <select value={quickCategory} onChange={e => setQuickCategory(e.target.value)}>
-              <option>Most Needed Now</option>
-              <option>Mission Annapurna</option>
-              <option>Mission Vidhya</option>
-              <option>Mission Aurat</option>
-              <option>Mission Bezubaan</option>
-            </select>
-            <i className="fas fa-chevron-down"></i>
-          </div>
           <div className="payment-icons">
             <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/paypal.svg" alt="PayPal" className="pay-icon" />
             <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/visa.svg" alt="VISA" className="pay-icon visa" />

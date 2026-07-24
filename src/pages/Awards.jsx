@@ -21,7 +21,7 @@ const Awards = () => {
       <style>{`
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         :root{--navy:#03163E;--mid:#315371;--cyan:#00A2D9;--cyan-light:#33bce8;--green:#2eb85c;--white:#ffffff;--light-bg:#f4f7fb;--text-dark:#1a1a2e;--text-mid:#4a5568;--gold:#D4AF37}
-        body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:#fff}
+        body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:#fff;scroll-behavior:smooth}
         .section-title{text-align:center;font-size:34px;font-weight:800;margin:55px auto 25px;color:var(--cyan);font-family:'Montserrat',sans-serif;display:block;width:100%;max-width:1400px;padding:0 60px}
         .awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;padding:20px 60px 70px;max-width:1400px;margin:auto}
         .award-card{background:#fff;border-radius:14px;box-shadow:0 5px 18px rgba(0,0,0,0.1);overflow:hidden;text-align:center;transition:0.3s}
@@ -104,7 +104,7 @@ const Awards = () => {
         <div className="blur blur1"></div><div className="blur blur2"></div>
       </section>
 
-      <h2 className="section-title reveal">Our Achievements</h2>
+      <h2 className="section-title reveal" id="achievements">Our Achievements</h2>
       <div className="awards-grid reveal">
         <div className="award-card"><img src="/images/IIIA AWARD.jpg" alt="IIIA Award"/><div className="award-name">IIIA AWARD</div></div>
         <div className="award-card"><img src="/images/COVID WARRIOR.jpg" alt="Covid Warrior"/><div className="award-name">COVID WARRIOR</div></div>

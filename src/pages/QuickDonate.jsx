@@ -15,7 +15,7 @@ export default function QuickDonate() {
   const [searchParams] = useSearchParams();
   const [quickAmt, setQuickAmt] = useState(200);
   const [activePreset, setActivePreset] = useState(200);
-  const [quickCategory, setQuickCategory] = useState('Most Needed Now');
+  const [quickCategory, setQuickCategory] = useState('Mission Annapurna');
   const [basketOpen, setBasketOpen] = useState(false);
   const [cartQty, setCartQty] = useState({ annapurna: 0, vidhya: 0, aurat: 0, atma: 0, bezubaan: 0 });
   const [name, setName] = useState('');

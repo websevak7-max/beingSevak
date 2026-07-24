@@ -197,7 +197,7 @@ const WhereWeWork = () => {
       <style>{`
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         :root{--navy:#03163E;--mid:#315371;--cyan:#00A2D9;--cyan-light:#33bce8;--green:#2eb85c;--white:#ffffff;--light-bg:#f4f7fb;--text-dark:#1a1a2e;--text-mid:#4a5568;--gold:#D4AF37}
-        body{font-family:'Open Sans',sans-serif;color:var(--text-dark)}
+        body{font-family:'Open Sans',sans-serif;color:var(--text-dark);scroll-behavior:smooth}
         .tax-box{width:100%;height:70px;display:flex;justify-content:center;align-items:center;text-align:center;background:linear-gradient(to right,#009BD4 0%,#0285C3 25%,#046FB1 50%,#074D97 75%,#083D8B 100%);color:#fff;border-radius:0;margin:20px 0;padding:10px}
         .tax-box h1{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;letter-spacing:2px;color:#fff;margin:0}
         .hero{min-height:80vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0;position:relative;overflow:hidden;padding:10px 8%}
@@ -355,7 +355,7 @@ const WhereWeWork = () => {
                 <div className="www-legend"><span className="www-legend-title">Focus Areas</span><div className="www-legend-items"><span className="www-legend-item"><i className="fas fa-book-open" style={{ color: '#00a3da' }}></i> Education</span><span className="www-legend-item"><i className="fas fa-heartbeat" style={{ color: '#ff6b00' }}></i> Healthcare</span><span className="www-legend-item"><i className="fas fa-female" style={{ color: '#e91e63' }}></i> Women Empower</span><span className="www-legend-item"><i className="fas fa-leaf" style={{ color: '#4caf50' }}></i> Sustainability</span></div></div>
               </div>
             </div>
-            <div className="www-list-col">
+            <div className="www-list-col" id="locations">
               <div className="www-list-header"><h3>Our <span>States</span></h3><p>Hover a location to see its impact</p></div>
               <div className="www-list-scroll">
                 {locations.map(loc => (
