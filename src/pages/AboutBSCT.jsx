@@ -31,7 +31,7 @@ const AboutBSCT = () => {
           --text-mid: #4a5568;
         }
 
-        .about-page { font-family: 'Open Sans', sans-serif; color: var(--text-dark); }
+        .about-page { font-family: 'Open Sans', sans-serif; color: var(--text-dark); scroll-behavior: smooth; }
 
         .about-page .tax-box {
           width: 100%; height: 70px; display: flex; justify-content: center; align-items: center;
@@ -317,7 +317,7 @@ const AboutBSCT = () => {
         </section>
 
         {/* ABOUT US 2-COL GRID */}
-        <section className="about-grid-wrap reveal">
+        <section className="about-grid-wrap reveal" id="about">
           <div className="about-image-col">
             <img src="/images/aboutus2.jpeg" alt="BSCT Community Work" loading="lazy" />
           </div>

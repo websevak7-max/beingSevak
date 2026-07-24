@@ -7,7 +7,7 @@ export default function Home() {
 
   // Quick Donate
   const [quickAmt, setQuickAmt] = useState(200);
-  const [quickCategory, setQuickCategory] = useState('Most Needed Now');
+
   const [activePreset, setActivePreset] = useState(200);
 
   // Donation Basket
@@ -263,16 +263,6 @@ export default function Home() {
           <button className={`preset-amt ${activePreset === 150 ? 'active' : ''}`} onClick={() => handlePresetClick(150)}>₹150 INR</button>
           <button className={`preset-amt ${activePreset === 200 ? 'active' : ''}`} onClick={() => handlePresetClick(200)}>₹200 INR</button>
           <button className={`preset-amt ${activePreset === 500 ? 'active' : ''}`} onClick={() => handlePresetClick(500)}>₹500 INR</button>
-          <div className="category-select">
-            <select value={quickCategory} onChange={(e) => setQuickCategory(e.target.value)}>
-              <option>Most Needed Now</option>
-              <option>Mission Annapurna</option>
-              <option>Mission Vidhya</option>
-              <option>Mission Aurat</option>
-              <option>Mission Bezubaan</option>
-            </select>
-            <i className="fas fa-chevron-down"></i>
-          </div>
           <div className="payment-icons">
             <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/paypal.svg" alt="PayPal" className="pay-icon"
               onError={(e) => { e.target.outerHTML = '<span class="pay-icon-fb">PayPal</span>'; }} />

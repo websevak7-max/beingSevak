@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Careers = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowSuccess(true);
+    e.target.reset();
+    setTimeout(() => setShowSuccess(false), 3000);
+  };
+
   return (
     <>
       <style>{`
@@ -46,6 +56,13 @@ const Careers = () => {
         .benefit-item:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.12);background:linear-gradient(135deg,#00a3da,#315270)}
         .benefit-item:hover h4,.benefit-item:hover p,.benefit-item:hover i{color:#fff}
         @media(max-width:860px){.careers-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.volunteer-benefits{grid-template-columns:1fr}.section-title h2{font-size:28px}}
+        .popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;visibility:hidden;transition:all 0.3s ease}
+        .popup-overlay.show{opacity:1;visibility:visible}
+        .popup-box{background:#fff;border-radius:16px;padding:40px 50px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);transform:scale(0.8);transition:transform 0.3s ease;max-width:400px}
+        .popup-overlay.show .popup-box{transform:scale(1)}
+        .popup-box .popup-icon{width:60px;height:60px;border-radius:50%;background:#2eb85c;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;color:#fff}
+        .popup-box h3{font-family:'Montserrat',sans-serif;font-size:1.4rem;color:#03163E;margin-bottom:8px}
+        .popup-box p{font-size:0.95rem;color:#4a5568;margin:0}
       `}</style>
 
       <section className="tax-box">
@@ -108,7 +125,7 @@ const Careers = () => {
               <h3>Volunteer Application</h3>
               <p>Fill out the form below and our team will get back to you.</p>
 
-              <form id="volunteerForm">
+              <form id="volunteerForm" onSubmit={handleSubmit}>
                 <div className="form-row">
                   <div className="form-group">
                     <label>Full Name <span>*</span></label>
@@ -161,6 +178,13 @@ const Careers = () => {
           </div>
         </div>
       </section>
+      <div className={`popup-overlay ${showSuccess ? 'show' : ''}`} onClick={() => setShowSuccess(false)}>
+        <div className="popup-box">
+          <div className="popup-icon"><i className="fas fa-check"></i></div>
+          <h3>Form Submitted!</h3>
+          <p>Thank you for your interest. Our team will get back to you soon.</p>
+        </div>
+      </div>
     </>
   );
 };
