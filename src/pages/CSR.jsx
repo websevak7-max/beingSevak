@@ -75,7 +75,7 @@ const CSR = () => {
         </div>
 
         <div className="csr-card">
-          <p>We welcome corporates, institutions, and partners to collaborate with us in building an inclusive, empowered, and better society for all.</p>
+          <p>We welcome corporates, institutions, and partners to collaborate with us in building an inclusive, empowered, and better society for a all.</p>
         </div>
 
         <section className="bs-initiatives">
